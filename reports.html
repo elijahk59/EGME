@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Warranty Claims Report</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h2>Stored Warranty Claims</h2>
+  <button onclick="downloadCSV()">Download CSV</button>
+  <table id="claimsTable" border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>VIN</th>
+        <th>Mileage</th>
+        <th>Customer</th>
+        <th>Date</th>
+        <th>Complaint</th>
+        <th>Diagnosis</th>
+        <th>Remedy</th>
+        <th>Details</th>
+        <th>Documents</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    async function fetchReports() {
+      const res = await fetch('/reports');
+      const data = await res.json();
+      const tableBody = document.querySelector('#claimsTable tbody');
+      tableBody.innerHTML = '';
+
+      data.forEach(claim => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${claim.id}</td>
+          <td>${claim.vin}</td>
+          <td>${claim.mileage}</td>
+          <td>${claim.customer}</td>
+          <td>${claim.date}</td>
+          <td>${claim.complaint}</td>
+          <td>${claim.diagnosis}</td>
+          <td>${claim.remedy}</td>
+          <td>${claim.additionalDetails}</td>
+          <td>
+            ${claim.files.split(',').map(f =>
+              `<a href="/uploads/${f}" target="_blank" download>${f}</a><br>`
+            ).join('')}
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function downloadCSV() {
+      window.location.href = '/export-csv';
+    }
+
+    fetchReports();
+  </script>
+</body>
+</html>
