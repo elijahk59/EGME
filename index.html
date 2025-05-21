@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Warranty Claim Report</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <form id="warrantyForm" enctype="multipart/form-data">
+    <h2>WARRANTY CLAIM REPORT <span class="right">EGME</span></h2>
+
+    <label>VIN: <input type="text" name="vin" required></label>
+    <label>Mileage: <input type="number" name="mileage" required></label>
+    <label>Customer: <input type="text" name="customer" required></label>
+    <label>Date: <input type="date" name="date" required></label>
+
+    <label>Customer Complaint:</label>
+    <textarea name="complaint" required></textarea>
+
+    <label>Diagnosis Details:</label>
+    <textarea name="diagnosis" required></textarea>
+
+    <label>Remedy:</label>
+    <textarea name="remedy" required></textarea>
+
+    <label>Additional Details:</label>
+    <textarea name="additionalDetails"></textarea>
+
+    <label>Upload Documents (images/videos):</label>
+    <input type="file" name="documents" multiple accept="image/*,video/*" />
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script src="script.js"></script>
+</body>
+</html>
